@@ -11,26 +11,36 @@ public class Player : MonoBehaviour
     public Vector2 velocity;
 
     public float speed;
+    public float speedRun;
 
     public float forceJump = 2;
+
+    private float _currentSpeed;
 
     public void Update()
     {
         handleJump();
         HandleMoviniment();
+ 
     }
 
     private void HandleMoviniment()
     {
+        if (Input.GetKey(KeyCode.LeftControl))
+            _currentSpeed = speedRun;
+        else
+            _currentSpeed = speed;
+
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             //myRigidbody.MovePosition(myRigidbody.position - velocity * Time.deltaTime);
-            myRigidbody.velocity = new Vector2(-speed, myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(-_currentSpeed, myRigidbody.velocity.y);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             //myRigidbody.MovePosition(myRigidbody.position + velocity * Time.deltaTime);
-            myRigidbody.velocity = new Vector2(speed, myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
         }
 
         if(myRigidbody.velocity.x > 0)

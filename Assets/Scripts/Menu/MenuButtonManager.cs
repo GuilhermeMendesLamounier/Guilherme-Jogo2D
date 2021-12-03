@@ -36,4 +36,6 @@ public class MenuButtonManager : MonoBehaviour
             b.transform.DOScale(1, duration).SetDelay(1 * delay).SetEase(ease);
         }
     }
+
+   
 }
