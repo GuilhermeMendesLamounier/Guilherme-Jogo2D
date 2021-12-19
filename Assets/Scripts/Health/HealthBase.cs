@@ -12,12 +12,17 @@ public class HealthBase : MonoBehaviour
 
 
     private int _currentLife;
-
     private bool _isDead = false;
+
+    public FlashColor flashColor;
 
     private void Awake()
     {
         Init();
+        if(flashColor == null)
+        {
+            flashColor = GetComponent<FlashColor>();
+        }
     }
 
     private void Init()
@@ -35,6 +40,11 @@ public class HealthBase : MonoBehaviour
         if(_currentLife <= 0)
         {
             kill();
+        }
+
+        if(flashColor != null)
+        {
+            flashColor.flash();
         }
     }
 
