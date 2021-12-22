@@ -7,35 +7,46 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
+    public HealthBase healthBase;
 
     [Header("Speed setup")]
     public Vector2 friction = new Vector2(.1f, 0);
     public float speed;
     public float speedRun;
     public float forceJump = 2;
-    public float forcedown = 2;
     
 
 
-    [Header("Animation setup pulo")]
+    [Header("Animation setup ")]
     public float jumpScaleY = 1.5f;
     public float jumpScaleX = 0.7f;
     public float animationDuration = .3f;
     public Ease ease = Ease.OutBack;
 
-    [Header("Animation setup impacy")]
-    public float impactScaleY = 0.7f;
-    public float impactScaleX = 1.5f;
-    public float durationanimaation = 3f;
-    public Ease easa = Ease.OutBack;
 
     [Header("Animation player")]
     public string BoolRun = "Run";
+    public string triggerDeath = "Death";
     public Animator animator;
     public float playerSwipeDuration = .1f;
 
     private float _currentSpeed;
-    
+
+    private void Awake()
+    {
+        if(healthBase != null)
+        {
+            healthBase.Onkill += OnPlayerKill;
+        }
+
+    }
+
+    private void OnPlayerKill()
+    {
+        healthBase.Onkill -= OnPlayerKill;
+        animator.SetTrigger(triggerDeath);
+    }
+
 
     public void Update()
     {
@@ -106,17 +117,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-       // if (collision.transform)
-        {
-         // myRigidbody.velocity = Vector2.down * forcedown;
-          //myRigidbody.transform.localScale = Vector2.one;
-
-          //HandleScaleDown();
-        }
-
-    }
 
     private void HandleScaleJump()
     {
@@ -125,11 +125,9 @@ public class Player : MonoBehaviour
 
     }
 
-    private void HandleScaleDown()
+    public void DestroyMe()
     {
-        myRigidbody.transform.DOScaleY(impactScaleY, animationDuration).SetLoops(2, LoopType.Yoyo);
-        myRigidbody.transform.DOScaleX(impactScaleX, animationDuration).SetLoops(2, LoopType.Yoyo);
-
+        Destroy(gameObject); 
     }
 
 }

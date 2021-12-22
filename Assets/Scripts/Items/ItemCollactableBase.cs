@@ -16,10 +16,14 @@ public class ItemCollactableBase : MonoBehaviour
 
     protected virtual void Collect() 
     {
-        gameObject.SetActive(false);
+        Debug.Log("Collect");
         OnCollect();
+        gameObject.SetActive(false);
     }
 
-    protected virtual void OnCollect() { }
+    protected virtual void OnCollect() 
+    {
+
+    }
 
 }
