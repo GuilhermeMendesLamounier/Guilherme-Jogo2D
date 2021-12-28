@@ -6,13 +6,14 @@ using TMPro;
 
 public class ItemManager : Singleton<ItemManager> 
 {
-    public int Coins;
+    public SOint Coins;
 
     public TextMeshProUGUI coinsDisplay;
 
     public void UpdateUI()
     {
-        coinsDisplay.text = Coins.ToString();
+        //coinsDisplay.text = Coins.ToString();
+        //UIInGameManager.updateTextCoins(Coins.value.ToString());
     }
 
     private void Start()
@@ -22,12 +23,13 @@ public class ItemManager : Singleton<ItemManager>
 
     private void Reset()
     {
-        Coins = 0;
+        Coins.value = 0;
+        UpdateUI();
     }
 
     public void addCoins(int amount = 1)
     {
-        Coins+= amount;
+        Coins.value += amount;
         UpdateUI();
     }
 
